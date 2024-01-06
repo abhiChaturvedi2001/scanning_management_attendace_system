@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "attendancemanagement-f2667",
+    "staging": "attendancemanagement-f2667"
+  },
+  "targets": {},
+  "etags": {}
+}
