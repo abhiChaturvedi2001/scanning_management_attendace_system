@@ -1,7 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./Header";
+import { useDispatch } from "react-redux";
+import { addUsers, removeUsers } from "../utils/userSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Attendance = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // when componenet is authenticate it re-render the page
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUsers({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+        navigate("/attendance");
+      } else {
+        dispatch(removeUsers());
+        navigate("/");
+      }
+    });
+  }, []);
+  
   return (
     <>
       <div>

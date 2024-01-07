@@ -11,4 +11,5 @@ Currently, two official plugins are available:
 - login page done
 - adding sign in and sign up done 
 - firebase configured
-- adding database to get student data 
+- Bug fix : sign in sign up 
+- refactoring done

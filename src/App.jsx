@@ -1,7 +1,10 @@
 import React from "react";
 import Login from "./Component/Login";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Attendance from "./Component/Attendance";
+import Body from "./Component/Body";
+import { Provider } from "react-redux";
+import { store } from "./utils/store";
 
 const App = () => {
   const appRouter = createBrowserRouter([
@@ -14,9 +17,12 @@ const App = () => {
       element: <Attendance />,
     },
   ]);
+
   return (
     <div>
-      <RouterProvider router={appRouter} />
+      <Provider store={store}>
+        <Body appRouter={appRouter} />
+      </Provider>
     </div>
   );
 };
