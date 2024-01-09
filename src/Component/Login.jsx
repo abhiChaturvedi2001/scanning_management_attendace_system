@@ -13,7 +13,6 @@ import { addUsers, removeUsers } from "../utils/userSlice";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 const Login = () => {
-  const [isSignupForm, setIsSignupForm] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -57,12 +56,14 @@ const Login = () => {
   const handleLogin = (userData) => {
     const email = userData.AdminID;
     const password = userData.AdminPassword;
+    const adminName = userData.Name;
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const { email } = userCredential;
         dispatch(
           addUsers({
             email: email,
+            name: adminName,
           })
         );
       })

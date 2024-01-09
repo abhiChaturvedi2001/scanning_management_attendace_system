@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { FaRegUser } from "react-icons/fa";
+import { avatar_img_logo } from "../utils/constants";
 
 const Header = () => {
+  const [dropDown, setdropDown] = useState(false);
   const handleLogout = () => {
     signOut(auth)
       .then(() => {})
       .catch((error) => {});
+  };
+  const handleDropDown = () => {
+    setdropDown(!dropDown);
   };
   return (
     <>
@@ -16,13 +20,29 @@ const Header = () => {
           Attendance System
         </div>
         <ul className="flex space-x-5 items-center">
-          <li>
-            <FaRegUser />
-          </li>
-          <li>{}</li>
-          <button onClick={handleLogout}>Log out</button>
+          <img
+            className="w-[40px] cursor-pointer"
+            src={avatar_img_logo}
+            alt=""
+            onClick={handleDropDown}
+          />
         </ul>
       </nav>
+      <div
+        className={`absolute w-[10%] h-[20vh] transition-all duration-300 ${
+          dropDown ? "opacity-100 scale-100" : "opacity-0 scale-95"
+        } top-13 rounded-md shadow-lg right-10 bg-orange-300 transform origin-top-right`}
+      >
+        <h1 className=" hover:underline ml-5 mt-4 font-bold cursor-pointer ">
+          Admin Profile
+        </h1>
+        <button
+          onClick={handleLogout}
+          className="w-full hover:underline mt-2 font-bold  "
+        >
+          Log out
+        </button>
+      </div>
     </>
   );
 };

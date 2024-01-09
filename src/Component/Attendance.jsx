@@ -14,11 +14,12 @@ const Attendance = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email } = user;
+        const { uid, email,displayName } = user;
         dispatch(
           addUsers({
             uid: uid,
             email: email,
+            displayName:displayName
           })
         );
         navigate("/attendance");

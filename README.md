@@ -11,5 +11,8 @@ Currently, two official plugins are available:
 - login page done
 - adding sign in and sign up done 
 - firebase configured
+- read data from firebase
+- adding data also
 - Bug fix : sign in sign up 
 - refactoring done
+- header done with drop down menu
