@@ -1,10 +1,9 @@
 import React from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useSelector } from "react-redux";
+import { FaRegUser } from "react-icons/fa";
 
 const Header = () => {
-  const user = useSelector((store) => store.user);
   const handleLogout = () => {
     signOut(auth)
       .then(() => {})
@@ -16,8 +15,11 @@ const Header = () => {
         <div className="logo font-bold text-lg uppercase tracking-wider">
           Attendance System
         </div>
-        <ul className="flex space-x-5">
-          <li>Hey Admin :- {user.displayName} </li>
+        <ul className="flex space-x-5 items-center">
+          <li>
+            <FaRegUser />
+          </li>
+          <li>{}</li>
           <button onClick={handleLogout}>Log out</button>
         </ul>
       </nav>

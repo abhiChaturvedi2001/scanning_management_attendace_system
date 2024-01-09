@@ -14,13 +14,11 @@ const Attendance = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email, displayName, photoURL } = user;
+        const { uid, email } = user;
         dispatch(
           addUsers({
             uid: uid,
             email: email,
-            displayName: displayName,
-            photoURL: photoURL,
           })
         );
         navigate("/attendance");
@@ -30,7 +28,7 @@ const Attendance = () => {
       }
     });
   }, []);
-  
+
   return (
     <>
       <div>
