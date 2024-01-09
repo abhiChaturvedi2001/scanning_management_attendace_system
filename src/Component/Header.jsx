@@ -29,7 +29,7 @@ const Header = () => {
         </ul>
       </nav>
       <div
-        className={`absolute w-[10%] h-[20vh] transition-all duration-300 ${
+        className={`absolute w-[10rem] max-md:w-[15rem] h-[20vh] transition-all duration-300 ${
           dropDown ? "opacity-100 scale-100" : "opacity-0 scale-95"
         } top-13 rounded-md shadow-lg right-10 bg-orange-300 transform origin-top-right`}
       >
