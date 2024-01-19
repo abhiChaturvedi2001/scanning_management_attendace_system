@@ -1,34 +1,33 @@
 import React, { useRef, useState, useEffect } from "react";
 import { checkValidate } from "../utils/validate";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { collection, query, getDocs, where } from "firebase/firestore";
 import { db } from "../utils/firebase";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
 import { addUsers, removeUsers } from "../utils/userSlice";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [errorMessage, seterrorMessage] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // this is use for taking the input values useRef hooks
   let email = useRef(null);
   let password = useRef(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email } = user;
+        const { uid, email, displayName } = user;
         dispatch(
-          addUsers({
-            uid: uid,
-            email: email,
-          })
+          addUsers({ uid: uid, email: email, displayName: displayName })
         );
         navigate("/attendance");
       } else {
@@ -38,11 +37,15 @@ const Login = () => {
     });
   }, []);
 
-  // handle to login validation
-  const handleLoginValidation = async () => {
+  const handleValidation = () => {
     const message = checkValidate(email.current.value, password.current.value);
     seterrorMessage(message);
-    if (message) return;
+    if (message != null) return;
+
+    fetchDataFromDB();
+  };
+
+  const fetchDataFromDB = async () => {
     const collectionRef = collection(db, "Admin");
     const q = query(
       collectionRef,
@@ -54,28 +57,43 @@ const Login = () => {
   };
 
   const handleLogin = (userData) => {
-    const email = userData.AdminID;
-    const password = userData.AdminPassword;
-    const adminName = userData.Name;
-    createUserWithEmailAndPassword(auth, email, password)
+    const { AdminID, AdminPassword, AdminName } = userData;
+    createUserWithEmailAndPassword(auth, AdminID, AdminPassword, AdminName)
       .then((userCredential) => {
-        const { email } = userCredential;
-        dispatch(
-          addUsers({
-            email: email,
-            name: adminName,
+        const user = userCredential.user;
+        updateProfile(user, {
+          displayName: AdminName,
+        })
+          .then(() => {
+            const { email, displayName } = auth.currentUser;
+            console.log(auth.currentUser);
+            dispatch(
+              addUsers({
+                email: email,
+                displayName: displayName,
+              })
+            );
           })
-        );
+          .catch((error) => {});
       })
       .catch((error) => {
-        seterrorMessage(error.message);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        seterrorMessage(`${errorCode} - ${errorMessage}`);
       });
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {})
+
+    signInWithEmailAndPassword(auth, AdminID, AdminPassword, AdminName)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user + "sign waala");
+      })
       .catch((error) => {
-        seterrorMessage(error.message);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        seterrorMessage(`${errorCode} - ${errorMessage}`);
       });
   };
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -106,12 +124,9 @@ const Login = () => {
               type="password"
               placeholder="ex:Pass@123"
             />
-            <h1 className="mt-4 hover:underline cursor-pointer">
-              Forgot Password ?{" "}
-            </h1>
             <p className="text-red-500 font-bold">{errorMessage}</p>
             <button
-              onClick={handleLoginValidation}
+              onClick={handleValidation}
               className="bg-[#512da8] px-2 py-2 mt-4 rounded-md cursor-pointer text-white w-[40%] max-sm:w-full"
             >
               Sign in

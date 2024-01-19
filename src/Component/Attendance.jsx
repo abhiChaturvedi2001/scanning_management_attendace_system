@@ -1,26 +1,23 @@
 import React, { useEffect } from "react";
-import Header from "./Header";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUsers, removeUsers } from "../utils/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
+import Sidebar from "./Sidebar";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 
 const Attendance = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // when componenet is authenticate it re-render the page
+  // it is a type of auth state listener whenver it the page hits this automatic call
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email,displayName } = user;
+        const { uid, email, displayName } = user;
+
         dispatch(
-          addUsers({
-            uid: uid,
-            email: email,
-            displayName:displayName
-          })
+          addUsers({ uid: uid, email: email, displayName: displayName })
         );
         navigate("/attendance");
       } else {
@@ -32,8 +29,9 @@ const Attendance = () => {
 
   return (
     <>
-      <div>
-        <Header />
+      <div className="dasboard-container flex text-white w-[100%] h-[100vh] bg-[#eaeaea]">
+        <Sidebar />
+        <Outlet />
       </div>
     </>
   );
