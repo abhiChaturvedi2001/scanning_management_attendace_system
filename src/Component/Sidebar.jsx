@@ -3,7 +3,7 @@ import { signOut } from "firebase/auth";
 import { RiAdminLine } from "react-icons/ri";
 import { BatchSlots, BatchYear } from "../utils/constants";
 import { auth } from "../utils/firebase";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   // handle the logout functionality

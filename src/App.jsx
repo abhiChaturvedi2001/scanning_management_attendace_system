@@ -1,8 +1,4 @@
-import React, { useEffect } from "react";
-import { Outlet, Route, useRoutes } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import React from "react";
 import Attendance from "./Component/Attendance";
 import Login from "./Component/Login";
 import { createBrowserRouter } from "react-router-dom";
