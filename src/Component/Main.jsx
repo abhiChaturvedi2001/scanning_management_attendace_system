@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addAccount, logoutUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -45,7 +47,22 @@ const Main = () => {
     // Unsubscribe the listener when the component unmounts
     return () => unsubscribe();
   }, []);
-  return <div>Main</div>;
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        toast("logged out");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+  return (
+    <>
+      <ToastContainer />
+      <div></div>
+    </>
+  );
 };
 
 export default Main;

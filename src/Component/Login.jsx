@@ -1,21 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import { auth } from "../utils/firebase";
+import { auth, db } from "../utils/firebase";
 import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
-import { checkValidate } from "../utils/validate";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addAccount, logoutUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { checkValidate } from "../utils/validate";
 
 const Login = () => {
-  const [errorMessage, seterrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const email = useRef(null);
   const password = useRef(null);
@@ -24,30 +23,18 @@ const Login = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // Check if the user's display name is null
-        if (user.displayName === null) {
-          // If display name is null, fetch the latest user data
-          // This is to handle the delay caused by updateProfile
-          const { uid, email, displayName } = auth.currentUser;
-          dispatch(
-            addAccount({
-              uid: uid,
-              email: email,
-              displayName: displayName,
-            })
-          );
-        } else {
-          // If display name is already updated, use the current user data
-          const { uid, email, displayName } = user;
-          dispatch(
-            addAccount({
-              uid: uid,
-              email: email,
-              displayName: displayName,
-            })
-          );
-        }
-
+        const { uid, email, displayName } = auth.currentUser;
+        dispatch(
+          addAccount({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+          })
+        );
+        toast.success("Successfully Logged In", {
+          position: "top-center",
+          autoClose: 2000,
+        });
         navigate("/mainPage");
       } else {
         dispatch(logoutUser());
@@ -61,7 +48,7 @@ const Login = () => {
 
   const handleValidation = () => {
     const message = checkValidate(email.current.value, password.current.value);
-    seterrorMessage(message);
+    setErrorMessage(message);
     if (message) return;
     getAdminData();
   };
@@ -91,21 +78,14 @@ const Login = () => {
           displayName: AdminName,
         })
           .then(() => {
-            // Wait for a short period to ensure the display name is updated
-            setTimeout(() => {
-              dispatch(
-                addAccount({
-                  uid: user.uid,
-                  email: AdminID,
-                  displayName: AdminName,
-                })
-              );
-              toast.success("Successfully Logged In", {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-              });
-            }, 500);
+            dispatch(
+              addAccount({
+                uid: user.uid,
+                email: AdminID,
+                displayName: AdminName,
+              })
+            );
+            setIsLoggedIn(true); // Update login state
           })
           .catch((error) => {
             console.error("Error updating profile:", error.message);
@@ -114,7 +94,7 @@ const Login = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        seterrorMessage(`${errorCode} - ${errorMessage}`);
+        setErrorMessage(`${errorCode} - ${errorMessage}`);
       });
   };
 
