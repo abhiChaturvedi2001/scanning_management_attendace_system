@@ -1,37 +1,23 @@
 import React from "react";
-import Attendance from "./Component/Attendance";
 import Login from "./Component/Login";
-import { createBrowserRouter } from "react-router-dom";
-import Students from "./Component/Students";
-import Profile from "./Component/Profile";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Main from "./Component/Main";
 
 const App = () => {
+  const appRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <Login />,
+    },
+    {
+      path: "/mainPage",
+      element: <Main />,
+    },
+  ]);
   return (
     <>
-      <div className="app"></div>
+      <RouterProvider router={appRouter} />
     </>
   );
 };
-
-export const appRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/attendance",
-    element: <Attendance />,
-    children: [
-      {
-        path: "/attendance/students",
-        element: <Students />,
-      },
-      {
-        path: "/attendance/profile",
-        element: <Profile />,
-      },
-    ],
-  },
-]);
-
 export default App;

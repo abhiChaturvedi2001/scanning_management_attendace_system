@@ -8,7 +8,7 @@ const firebaseConfig = {
     authDomain: "attendancemanagement-f2667.firebaseapp.com",
     projectId: "attendancemanagement-f2667",
     storageBucket: "attendancemanagement-f2667.appspot.com",
-    messagingSenderId: "224730300117",
+    messagingSenderId: "224-730300117",
     appId: "1:224730300117:web:aefdc18323092ed1daec5c",
     measurementId: "G-C91BEB539X"
 };
