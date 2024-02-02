@@ -60,7 +60,7 @@ const Main = () => {
   return (
     <>
       <ToastContainer />
-      <div></div>
+      <div onClick={handleSignOut}>logout</div>
     </>
   );
 };
