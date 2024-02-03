@@ -1,0 +1,1 @@
+export const profile_logo = `https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg`

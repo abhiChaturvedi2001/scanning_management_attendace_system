@@ -8,6 +8,9 @@ export default {
     extend: {
       fontFamily: {
         "poppins": ['Poppins', "sans-serif"]
+      },
+      backgroundColor: {
+        "bgColor": "#D78521",
       }
     },
   },

@@ -23,12 +23,16 @@ const Login = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email, displayName } = auth.currentUser;
+        const { uid, email, displayName, Employee, AdminContact, Teacher } =
+          auth.currentUser;
         dispatch(
           addAccount({
             uid: uid,
             email: email,
             displayName: displayName,
+            employee: Employee,
+            phone: AdminContact,
+            role: Teacher,
           })
         );
         toast.success("Successfully Logged In", {
@@ -67,7 +71,14 @@ const Login = () => {
   };
 
   const handleLogin = (userData) => {
-    const { AdminID, AdminPassword, AdminName } = userData;
+    const {
+      AdminID,
+      AdminPassword,
+      AdminName,
+      Employee,
+      AdminContact,
+      Teacher,
+    } = userData;
 
     signInWithEmailAndPassword(auth, AdminID, AdminPassword)
       .then((userCredential) => {
@@ -83,9 +94,11 @@ const Login = () => {
                 uid: user.uid,
                 email: AdminID,
                 displayName: AdminName,
+                employee: Employee,
+                phone: AdminContact,
+                role: Teacher,
               })
             );
-            setIsLoggedIn(true); // Update login state
           })
           .catch((error) => {
             console.error("Error updating profile:", error.message);
