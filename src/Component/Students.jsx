@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addStudent, filterDataBySlot } from "../utils/studentSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import spinner from "../Assets/spinner.gif";
 
 const Students = () => {
   const dispatch = useDispatch();
@@ -79,9 +80,11 @@ const Students = () => {
           </div>
         </div>
         {Filter.length === 0 ? (
-          <h1>Loadingg....</h1>
+          <div className="flex justify-center items-center h-[50vh]">
+            <img src={spinner} alt="" />
+          </div>
         ) : (
-          <div className="mt-8 px-4">
+          <div className="mt-8 px-4 ">
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 450 }} aria-label="simple table">
                 <TableHead>

@@ -38,7 +38,10 @@ const Navbar = () => {
         navigate("/mainPage");
       } else {
         dispatch(logoutUser());
-        toast.success("logged out");
+        toast.success("logged out", {
+          position: "top-center",
+          autoClose: 1000,
+        });
         navigate("/");
       }
     });
