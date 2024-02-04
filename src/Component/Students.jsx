@@ -32,22 +32,18 @@ const Students = () => {
     return { RegisterNo, Name, Course, Attendance };
   }
 
-  const rows = Filter
-    .map((student) =>
-      createData(
-        student.StudentID,
-        student.StudentName,
-        student.Course,
-        student.Attendance
-      )
+  const rows = Filter.map((student) =>
+    createData(
+      student.StudentID,
+      student.StudentName,
+      student.Course,
+      student.Attendance
     )
-    .reverse();
+  ).reverse();
 
   const handleValue = (e) => {
     dispatch(filterDataBySlot(e.currentTarget.value));
   };
-
-  console.log(studentData);
 
   return (
     <>
