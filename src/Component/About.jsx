@@ -3,12 +3,14 @@ import React from "react";
 const About = () => {
   return (
     <>
-      <div className="flex items-center justify-center h-[80vh] w-[70rem] ">
+      <div className="flex items-center justify-center h-[80vh] max-sm:h-[100vh] w-[70rem] overflow-x-scroll ">
         <div className=" font-poppins text-center px-5">
-          <h1 className="text-lg uppercase tracking-wider font-semibold">
+          <h1 className="text-lg uppercase max-md:text-sm tracking-wider font-semibold">
             Welcome on Our App 👋🏻
           </h1>
-          <h3 className="text-4xl mt-3 capitalize font-bold">AttendMark</h3>
+          <h3 className="text-4xl mt-3 capitalize font-bold max-md:text-xl">
+            AttendMark System
+          </h3>
           <p className="mt-4 font-medium">
             The Automated Attendance System is designed for managing attendance
             in various institutions starting from our university VIT, Bhopal.

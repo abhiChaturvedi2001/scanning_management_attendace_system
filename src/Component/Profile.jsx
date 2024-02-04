@@ -6,10 +6,10 @@ const Profile = () => {
   const user = useSelector((store) => store.user);
   return (
     <>
-      <div className="flex justify-center items-center px-5 h-[60vh] w-[70rem] mx-auto text-center">
+      <div className="flex justify-center items-center px-5 h-[60vh] overflow-x-scroll w-[70rem] mx-auto text-center">
         <div>
           <img className="w-[20%] mx-auto " src={profile_logo} alt="" />
-          <div className="font-bold font-poppins">
+          <div className="font-bold mt-4 font-poppins">
             <h1>{user === null ? "N/A" : `${user.displayName}`}</h1>
             <h1>Employee : {user === null ? "N/A" : `${user.employee}`} </h1>
           </div>

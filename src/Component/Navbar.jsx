@@ -57,7 +57,7 @@ const Navbar = () => {
   return (
     <>
       <ToastContainer />
-      <nav className="bg-[#0B3142] text-white rounded-tl-xl rounded-bl-lg w-[20rem] h-full px-2 py-5">
+      <nav className="bg-[#0B3142] text-white w-[20rem] h-full px-2 py-5">
         <div className="px-5 text-center ">
           <Link to={"/mainPage"}>
             <FaUserLock className="text-6xl w-[50%]  mx-auto  " />
@@ -106,14 +106,6 @@ const Navbar = () => {
               {!toggle ? "Dark Mode" : "Light Mode"}
             </p>
           </li>
-          <Link>
-            <li className="flex items-center space-x-2 mt-4  cursor-pointer">
-              <span>
-                <FaUserFriends className="text-2xl" />
-              </span>
-              <p className="font-bold font-poppins">B.Tech</p>
-            </li>
-          </Link>
           <li
             onClick={handleSignOut}
             className="flex items-center space-x-2 mt-4 cursor-pointer "
