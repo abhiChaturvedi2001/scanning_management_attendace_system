@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { IoIosLogOut } from "react-icons/io";
 import { FaUserFriends } from "react-icons/fa";
@@ -10,9 +10,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { addAccount, logoutUser } from "../utils/userSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MdDarkMode } from "react-icons/md";
+import { CiLight } from "react-icons/ci";
+import { addDarkMode } from "../utils/appModeSlice";
 
 const Navbar = () => {
   const user = useSelector((store) => store.user);
+  const toggle = useSelector((store) => store.appMode.toggle);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -34,6 +38,7 @@ const Navbar = () => {
         navigate("/mainPage");
       } else {
         dispatch(logoutUser());
+        toast.success("logged out");
         navigate("/");
       }
     });
@@ -44,15 +49,14 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        toast("logged out");
-      })
+      .then(() => {})
       .catch((error) => {
         // An error happened.
       });
   };
   return (
     <>
+      <ToastContainer />
       <nav className="bg-[#0B3142] text-white rounded-tl-xl rounded-bl-lg w-[20rem] h-full px-2 py-5">
         <div className="px-5 text-center ">
           <Link to={"/mainPage"}>
@@ -84,6 +88,24 @@ const Navbar = () => {
               <p className="font-bold font-poppins">MCA</p>
             </li>
           </Link>
+          <li className="flex items-center space-x-2 mt-4 cursor-pointer">
+            <span>
+              {!toggle ? (
+                <MdDarkMode
+                  onClick={() => dispatch(addDarkMode(true))}
+                  className="text-2xl"
+                />
+              ) : (
+                <CiLight
+                  onClick={() => dispatch(addDarkMode(false))}
+                  className="text-2xl"
+                />
+              )}
+            </span>
+            <p className="font-bold font-poppins">
+              {!toggle ? "Dark Mode" : "Light Mode"}
+            </p>
+          </li>
           <Link>
             <li className="flex items-center space-x-2 mt-4  cursor-pointer">
               <span>

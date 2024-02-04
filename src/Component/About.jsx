@@ -3,11 +3,14 @@ import React from "react";
 const About = () => {
   return (
     <>
-      <div className="flex items-center justify-center h-[60vh]">
+      <div className="flex items-center justify-center h-[80vh] w-[70rem] ">
         <div className=" font-poppins text-center px-5">
-          <h1 className="text-3xl capitalize font-bold">
-            Welcome to our Automated Attendance System
+          <h1 className="text-lg uppercase tracking-wider font-semibold">
+            Welcome on Our App 👋🏻
           </h1>
+          <h3 className="text-4xl mt-3 capitalize font-bold">
+            Atuomated Attendance System
+          </h3>
           <p className="mt-4 font-medium">
             The Automated Attendance System is designed for managing attendance
             in various institutions starting from our university VIT, Bhopal.
@@ -22,6 +25,9 @@ const About = () => {
             manipulation. To overcome this, we have designed this System that
             will provide a smooth and efficient experience.​
           </p>
+          <button className="px-2 py-2 border-2 mt-4 cursor-pointer ">
+            Check It Out
+          </button>
         </div>
       </div>
     </>
