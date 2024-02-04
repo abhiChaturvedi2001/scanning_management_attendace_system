@@ -53,12 +53,14 @@ const Navbar = () => {
   };
   return (
     <>
-      <nav className="bg-[#0B3142] text-white rounded-tl-xl rounded-bl-lg w-[15rem] h-full px-2 py-5">
+      <nav className="bg-[#0B3142] text-white rounded-tl-xl rounded-bl-lg w-[20rem] h-full px-2 py-5">
         <div className="px-5 text-center ">
-          <FaUserLock className="text-6xl w-[50%]  mx-auto  " />
-          <h1 className="mt-3 font-bold font-poppins">
-            {user === null ? `Hello` : `${user.displayName}`}{" "}
-          </h1>
+          <Link to={"/mainPage"}>
+            <FaUserLock className="text-6xl w-[50%]  mx-auto  " />
+            <h1 className="mt-3 font-bold font-poppins">
+              {user === null ? `Hello` : `${user.displayName}`}{" "}
+            </h1>
+          </Link>
         </div>
         <ul className="text-lg px-5 mt-5 ">
           <Link to={"/mainPage/adminProfile"}>
