@@ -65,7 +65,7 @@ const Navbar = () => {
     <>
       <ToastContainer />
       <FaBars
-        className={`text-3xl cursor-pointer my-5 mx-5 ${
+        className={`text-3xl absolute cursor-pointer top-4 left-4 ${
           togle ? `hidden` : `block`
         }`}
         onClick={() => setTogle(true)}

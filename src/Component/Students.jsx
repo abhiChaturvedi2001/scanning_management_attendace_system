@@ -61,17 +61,17 @@ const Students = () => {
     <>
       <ToastContainer />
       <div className="w-full overflow-x-scroll">
-        <div className=" text-center mt-6">
-          <h1 className="font-bold font-poppins capitalize">
+        <div className=" text-center mt-6 px-3 max-md:mt-[80px]">
+          <h1 className="font-bold font-poppins capitalize ">
             Note : All the MCA student who Paid the Fees are in the list.
           </h1>
-          <div className="mt-4">
+          <div className="mt-4 px-4 mx-sm:text-center">
             <label className="font-bold font-poppins">
               Check Students Slot Wise :{" "}
             </label>
             <select
               onChange={(e) => handleValue(e)}
-              className="w-[50%] bg-gray-300 font-poppins outline-none px-2 py-1 rounded-sm ml-4"
+              className="w-[50%] max-sm:w-full bg-gray-300 font-poppins outline-none px-2 py-1 rounded-sm ml-4"
             >
               <option value="">Choose Slot</option>
               <option value="B11+B12+B13">B11+B12+B13</option>
