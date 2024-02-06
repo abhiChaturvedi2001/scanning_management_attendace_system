@@ -35,10 +35,6 @@ const Login = () => {
             role: Teacher,
           })
         );
-        toast.success("Successfully Logged In", {
-          position: "top-center",
-          autoClose: 2000,
-        });
         navigate("/mainPage");
       } else {
         dispatch(logoutUser());
@@ -109,6 +105,10 @@ const Login = () => {
         const errorMessage = error.message;
         setErrorMessage(`${errorCode} - ${errorMessage}`);
       });
+    toast.success("Successfully Logged In", {
+      position: "top-center",
+      autoClose: 4000,
+    });
   };
 
   return (
@@ -151,7 +151,7 @@ const Login = () => {
             {errorMessage}
           </p>
           <p className="text-center mt-4 font-medium font-poppins">
-            Welcome our App 👋🏻 Please Login using Admin Cridentials
+            Welcome to our App 👋🏻 Please Login using Admin Cridentials
           </p>
         </form>
       </div>

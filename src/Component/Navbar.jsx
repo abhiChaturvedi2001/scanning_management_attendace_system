@@ -77,7 +77,9 @@ const Navbar = () => {
       >
         <RxCross1
           onClick={() => setTogle(false)}
-          className={`absolute right-2  ${togle ? "block" : "hidden"}`}
+          className={`absolute left-2 font-poppins font-bold cursor-pointer text-3xl  ${
+            togle ? "block" : "hidden"
+          }`}
         />
         <div className={`px-5 text-center ${togle ? `block` : `hidden`}`}>
           <Link onClick={() => setTogle(false)} to={"/mainPage"}>
