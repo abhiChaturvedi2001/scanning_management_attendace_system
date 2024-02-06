@@ -6,6 +6,7 @@ import Profile from "./Component/Profile";
 import Students from "./Component/Students";
 import About from "./Component/About";
 import DataDisplay from "./Component/DataDisplay";
+import QRCodeGenerator from "./Component/QRCodeGenerator";
 
 const App = () => {
   const appRouter = createBrowserRouter([
@@ -32,6 +33,10 @@ const App = () => {
         {
           path: "/mainPage/Students",
           element: <Students />,
+        },
+        {
+          path: "/mainPage/scanQR",
+          element: <QRCodeGenerator />,
         },
       ],
     },

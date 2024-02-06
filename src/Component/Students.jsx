@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styled from "@emotion/styled";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,7 +14,6 @@ import { addStudent, filterDataBySlot } from "../utils/studentSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import spinner from "../Assets/spinner.gif";
-import QRCodeGenerator from "./QRCodeGenerator";
 
 const Students = () => {
   const dispatch = useDispatch();
@@ -126,7 +126,6 @@ const Students = () => {
           </div>
         )}
       </div>
-      <QRCodeGenerator data={Filter} />
     </>
   );
 };

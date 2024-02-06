@@ -1,10 +1,10 @@
 import React from "react";
 
-const DataDisplay = ({ data }) => {
+const DataDisplay = () => {
   return (
     <div>
       <h2>Data Display</h2>
-      <p>{data}</p>
+      <p></p>
     </div>
   );
 };

@@ -15,6 +15,7 @@ import { CiLight } from "react-icons/ci";
 import { addDarkMode } from "../utils/appModeSlice";
 import { FaBars } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
+import { IoQrCodeOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const [togle, setTogle] = useState(false);
@@ -90,6 +91,19 @@ const Navbar = () => {
           </Link>
         </div>
         <ul className={`text-lg px-5 mt-5 ${togle ? "block" : "hidden"}`}>
+          <Link onClick={() => setTogle(false)} to={"/mainPage/scanQR"}>
+            <li className="flex items-center space-x-2 cursor-pointer">
+              <span>
+                <IoQrCodeOutline className="text-2xl " />
+              </span>
+              <p
+                className=" font-poppins font-bold
+             "
+              >
+                Scan QR
+              </p>
+            </li>
+          </Link>
           <Link onClick={() => setTogle(false)} to={"/mainPage/adminProfile"}>
             <li className="flex items-center space-x-2 cursor-pointer">
               <span>
