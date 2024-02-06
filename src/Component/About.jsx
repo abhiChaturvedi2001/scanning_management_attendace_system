@@ -3,7 +3,7 @@ import React from "react";
 const About = () => {
   return (
     <>
-      <div className="flex items-center justify-center h-[80vh] max-sm:h-[100vh] w-[70rem] overflow-x-scroll ">
+      <div className="flex items-center justify-center h-[80vh] max-sm:h-[100vh] w-full overflow-x-scroll ">
         <div className=" font-poppins text-center px-5">
           <h1 className="text-lg uppercase max-md:text-sm tracking-wider font-semibold">
             Welcome on Our App 👋🏻

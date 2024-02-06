@@ -7,7 +7,7 @@ const Profile = () => {
   const toggle = useSelector((store) => store.appMode.toggle);
   return (
     <>
-      <div className="flex justify-center items-center px-5 h-[60vh] overflow-x-scroll w-[70rem] mx-auto text-center">
+      <div className="flex justify-center items-center px-5 h-[60vh] overflow-x-scroll w-full mx-auto text-center">
         <div>
           <img className="w-[20%] mx-auto " src={profile_logo} alt="" />
           <div className="font-bold mt-4 font-poppins">

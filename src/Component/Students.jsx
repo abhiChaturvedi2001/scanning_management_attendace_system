@@ -13,6 +13,7 @@ import { addStudent, filterDataBySlot } from "../utils/studentSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import spinner from "../Assets/spinner.gif";
+import QRCodeGenerator from "./QRCodeGenerator";
 
 const Students = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ const Students = () => {
   return (
     <>
       <ToastContainer />
-      <div className="w-[70rem] overflow-x-scroll">
+      <div className="w-full overflow-x-scroll">
         <div className=" text-center mt-6">
           <h1 className="font-bold font-poppins capitalize">
             Note : All the MCA student who Paid the Fees are in the list.
@@ -125,6 +126,7 @@ const Students = () => {
           </div>
         )}
       </div>
+      <QRCodeGenerator data={Filter} />
     </>
   );
 };

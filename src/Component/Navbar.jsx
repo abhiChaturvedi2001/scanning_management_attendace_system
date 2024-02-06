@@ -13,8 +13,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { MdDarkMode } from "react-icons/md";
 import { CiLight } from "react-icons/ci";
 import { addDarkMode } from "../utils/appModeSlice";
+import { FaBars } from "react-icons/fa6";
+import { RxCross1 } from "react-icons/rx";
 
 const Navbar = () => {
+  const [togle, setTogle] = useState(false);
   const user = useSelector((store) => store.user);
   const toggle = useSelector((store) => store.appMode.toggle);
   const navigate = useNavigate();
@@ -57,20 +60,35 @@ const Navbar = () => {
         // An error happened.
       });
   };
+
   return (
     <>
       <ToastContainer />
-      <nav className="bg-[#0B3142] text-white w-[20rem] h-full px-2 py-5">
-        <div className="px-5 text-center ">
-          <Link to={"/mainPage"}>
+      <FaBars
+        className={`text-3xl cursor-pointer my-5 mx-5 ${
+          togle ? `hidden` : `block`
+        }`}
+        onClick={() => setTogle(true)}
+      />
+      <nav
+        className={`bg-[#0B3142] relative  transition-all duration-100 delay-75 text-white ${
+          togle ? `w-[25rem] px-5 ` : `w-[0rem] px-0`
+        } h-full  py-5`}
+      >
+        <RxCross1
+          onClick={() => setTogle(false)}
+          className={`absolute right-2  ${togle ? "block" : "hidden"}`}
+        />
+        <div className={`px-5 text-center ${togle ? `block` : `hidden`}`}>
+          <Link onClick={() => setTogle(false)} to={"/mainPage"}>
             <FaUserLock className="text-6xl w-[50%]  mx-auto  " />
             <h1 className="mt-3 font-bold font-poppins">
               {user === null ? `Hello` : `${user.displayName}`}{" "}
             </h1>
           </Link>
         </div>
-        <ul className="text-lg px-5 mt-5 ">
-          <Link to={"/mainPage/adminProfile"}>
+        <ul className={`text-lg px-5 mt-5 ${togle ? "block" : "hidden"}`}>
+          <Link onClick={() => setTogle(false)} to={"/mainPage/adminProfile"}>
             <li className="flex items-center space-x-2 cursor-pointer">
               <span>
                 <FaRegUser className="text-2xl " />
@@ -83,7 +101,7 @@ const Navbar = () => {
               </p>
             </li>
           </Link>
-          <Link to={"/mainPage/Students"}>
+          <Link onClick={() => setTogle(false)} to={"/mainPage/Students"}>
             <li className="flex items-center space-x-2 mt-4 cursor-pointer">
               <span>
                 <FaUserFriends className="text-2xl" />
