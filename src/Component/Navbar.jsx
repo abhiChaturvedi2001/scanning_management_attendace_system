@@ -105,7 +105,7 @@ const Navbar = () => {
             </li>
           </Link>
           <Link onClick={() => setTogle(false)} to={"/mainPage/adminProfile"}>
-            <li className="flex items-center space-x-2 cursor-pointer">
+            <li className="flex items-center mt-4 space-x-2 cursor-pointer">
               <span>
                 <FaRegUser className="text-2xl " />
               </span>
