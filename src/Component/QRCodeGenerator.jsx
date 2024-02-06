@@ -17,7 +17,6 @@ const QRCodeGenerator = () => {
     scanner.render(success, error);
     function success(result) {
       scanner.clear();
-      console.log(result);
       setscanresult(result);
     }
     function error(err) {
