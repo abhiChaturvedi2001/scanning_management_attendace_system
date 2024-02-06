@@ -5,7 +5,6 @@ import Main from "./Component/Main";
 import Profile from "./Component/Profile";
 import Students from "./Component/Students";
 import About from "./Component/About";
-import DataDisplay from "./Component/DataDisplay";
 import QRCodeGenerator from "./Component/QRCodeGenerator";
 
 const App = () => {
@@ -15,19 +14,11 @@ const App = () => {
       element: <Login />,
     },
     {
-      path: "/display/:data",
-      element: ({ match }) => <DataDisplay data={match.params.data} />,
-    },
-    {
       path: "/mainPage",
       element: <Main />,
       children: [
         {
           path: "/mainPage",
-          element: <About />,
-        },
-        {
-          path: "/mainPage/adminProfile",
           element: <Profile />,
         },
         {

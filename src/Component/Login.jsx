@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { checkValidate } from "../utils/validate";
+import appLogo from "../Assets/applogo.png";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -114,13 +115,8 @@ const Login = () => {
   return (
     <>
       <ToastContainer />
-      <div className="absolute top-1/2 w-[31rem] max-sm:w-[90%] px-7 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <h1 className="text-center font-bold  font-poppins text-3xl">
-          Automated Attendance System
-        </h1>
-        <p className="text-center mt-3 font-medium font-poppins">
-          Mark Your Attendance Unique Way
-        </p>
+      <div className="absolute bg-[#f0f7fe] top-1/2 w-[30rem] max-sm:w-[90%] shadow-lg  h-[80vh] px-9 py-9 left-1/2 rounded-lg -translate-x-1/2 -translate-y-1/2">
+        <img src={appLogo} alt="" />
         <form onSubmit={(e) => e.preventDefault()} className="mt-6">
           <div>
             <label className="font-bold font-poppins">Email</label>
@@ -141,9 +137,12 @@ const Login = () => {
               placeholder="your password"
             />
           </div>
+          <p className="font-medium mt-4 hover:underline cursor-pointer font-poppins">
+            Forgot your password ?{" "}
+          </p>
           <button
             onClick={handleValidation}
-            className="mt-6 bg-purple-500 rounded-lg overflow-hidden shadow-lg w-full text-white font-poppins font-bold py-2 cursor-pointer"
+            className="mt-[70px] bg-[#0074D9] rounded-lg overflow-hidden shadow-lg w-full text-white font-poppins font-bold py-4 cursor-pointer"
           >
             Login
           </button>
@@ -151,7 +150,8 @@ const Login = () => {
             {errorMessage}
           </p>
           <p className="text-center mt-4 font-medium font-poppins">
-            Welcome to our App 👋🏻 Please Login using Admin Cridentials
+            By logging in, you will be accepting terms and conditions of
+            AttendMark
           </p>
         </form>
       </div>

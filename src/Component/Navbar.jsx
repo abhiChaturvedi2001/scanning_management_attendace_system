@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { IoIosLogOut } from "react-icons/io";
 import { FaUserFriends } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
-import { FaUserLock } from "react-icons/fa";
 import { auth } from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { addAccount, logoutUser } from "../utils/userSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { MdDarkMode } from "react-icons/md";
-import { CiLight } from "react-icons/ci";
-import { addDarkMode } from "../utils/appModeSlice";
-import { FaBars } from "react-icons/fa6";
-import { RxCross1 } from "react-icons/rx";
-import { IoQrCodeOutline } from "react-icons/io5";
-
+import applogo from "../Assets/applogo.png";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
+import { IoIosQrScanner } from "react-icons/io";
 const Navbar = () => {
-  const [togle, setTogle] = useState(false);
+  const [isOpen, setisOpen] = useState(false);
   const user = useSelector((store) => store.user);
-  const toggle = useSelector((store) => store.appMode.toggle);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -65,94 +58,74 @@ const Navbar = () => {
   return (
     <>
       <ToastContainer />
-      <FaBars
-        className={`text-3xl absolute cursor-pointer top-4 left-4 ${
-          togle ? `hidden` : `block`
-        }`}
-        onClick={() => setTogle(true)}
-      />
       <nav
-        className={`bg-[#0B3142] relative  transition-all duration-100 delay-75 text-white ${
-          togle ? `w-[25rem] px-5 ` : `w-[0rem] px-0`
-        } h-full  py-5`}
+        className={`bg-[#f0f7fe] flex flex-col justify-between relative w-[20rem]  transition-all text-black duration-100 delay-75  px-2  h-full  py-5`}
       >
-        <RxCross1
-          onClick={() => setTogle(false)}
-          className={`absolute left-2 font-poppins font-bold cursor-pointer text-3xl  ${
-            togle ? "block" : "hidden"
-          }`}
-        />
-        <div className={`px-5 text-center ${togle ? `block` : `hidden`}`}>
-          <Link onClick={() => setTogle(false)} to={"/mainPage"}>
-            <FaUserLock className="text-6xl w-[50%]  mx-auto  " />
-            <h1 className="mt-3 font-bold font-poppins">
-              {user === null ? `Hello` : `${user.displayName}`}{" "}
-            </h1>
-          </Link>
+        <div className={`px-5 text-center`}>
+          <img src={applogo} alt="" />
         </div>
-        <ul className={`text-lg px-5 mt-5 ${togle ? "block" : "hidden"}`}>
-          <Link onClick={() => setTogle(false)} to={"/mainPage/scanQR"}>
-            <li className="flex items-center space-x-2 cursor-pointer">
-              <span>
-                <IoQrCodeOutline className="text-2xl " />
-              </span>
-              <p
-                className=" font-poppins font-bold
-             "
-              >
-                Scan QR
-              </p>
+        <ul className={`text-lg px-5 mt-5 absolute top-[15%] w-full`}>
+          <div className="flex space-x-3 items-center font-poppins">
+            <FaRegUser className="text-2xl" />
+            <div className="font-medium mt-6">
+              <p>Dr. {user === null ? "NA" : user.displayName}</p>
+              <p>SCSE</p>
+            </div>
+          </div>
+          <Link to={"/mainPage"}>
+            <li className="border px-5 w-full font-bold py-2 rounded-md font-poppins mt-6 ">
+              Home
             </li>
           </Link>
-          <Link onClick={() => setTogle(false)} to={"/mainPage/adminProfile"}>
-            <li className="flex items-center mt-4 space-x-2 cursor-pointer">
-              <span>
-                <FaRegUser className="text-2xl " />
-              </span>
-              <p
-                className=" font-poppins font-bold
-             "
-              >
-                Admin Profile
-              </p>
-            </li>
-          </Link>
-          <Link onClick={() => setTogle(false)} to={"/mainPage/Students"}>
-            <li className="flex items-center space-x-2 mt-4 cursor-pointer">
-              <span>
-                <FaUserFriends className="text-2xl" />
-              </span>
-              <p className="font-bold font-poppins">MCA</p>
-            </li>
-          </Link>
-          <li className="flex items-center space-x-2 mt-4 cursor-pointer">
-            <span>
-              {!toggle ? (
-                <MdDarkMode
-                  onClick={() => dispatch(addDarkMode(true))}
-                  className="text-2xl"
-                />
-              ) : (
-                <CiLight
-                  onClick={() => dispatch(addDarkMode(false))}
-                  className="text-2xl"
-                />
-              )}
-            </span>
-            <p className="font-bold font-poppins">
-              {!toggle ? "Dark Mode" : "Light Mode"}
-            </p>
+          <li className="flex justify-between px-5 border items-center py-2 rounded-md font-bold font-poppins mt-3">
+            <p>Teams</p>
+            {isOpen ? (
+              <IoMdArrowDropup
+                onClick={() => setisOpen(false)}
+                className="cursor-pointer"
+              />
+            ) : (
+              <IoMdArrowDropdown
+                onClick={() => setisOpen(true)}
+                className="cursor-pointer"
+              />
+            )}
           </li>
-          <li
-            onClick={handleSignOut}
-            className="flex items-center space-x-2 mt-4 cursor-pointer "
-          >
-            <span>
-              <IoIosLogOut className="text-2xl" />
-            </span>
-            <p className="font-poppins font-bold ">Logout</p>
-          </li>
+          {isOpen && (
+            <div className="border-2 mt-2 transition-all duration-200 rounded-md">
+              <Link to={"/mainPage/Students"}>
+                <li className="flex space-x-3 mt-4 px-5 cursor-pointer">
+                  <span>
+                    <FaUserFriends className="text-2xl" />
+                  </span>
+                  <p className="font-bold font-poppins">MCA</p>
+                </li>
+              </Link>
+              <Link to={"/mainPage/Students"}>
+                <li className="flex space-x-3 mt-4 px-5 cursor-pointer">
+                  <span>
+                    <FaUserFriends className="text-2xl" />
+                  </span>
+                  <p className="font-bold font-poppins ">B.tech</p>
+                </li>
+              </Link>
+            </div>
+          )}
+          <Link to={"/mainPage/scanQR"}>
+            <li className="border flex justify-between items-center mt-3 px-5 w-full font-bold py-2 rounded-md font-poppins ">
+              Scanner{" "}
+              <span>
+                <IoIosQrScanner />
+              </span>
+            </li>
+          </Link>
         </ul>
+        <button
+          onClick={handleSignOut}
+          className="rounded-md mt-3 w-full px-2 font-bold text-white  py-2 bg-[#1c75d9]  "
+        >
+          LogOut
+        </button>
       </nav>
     </>
   );
