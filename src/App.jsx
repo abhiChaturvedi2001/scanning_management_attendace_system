@@ -6,12 +6,17 @@ import Profile from "./Component/Profile";
 import Students from "./Component/Students";
 import About from "./Component/About";
 import QRCodeGenerator from "./Component/QRCodeGenerator";
+import ChangePassword from "./Component/ChangePassword";
 
 const App = () => {
   const appRouter = createBrowserRouter([
     {
       path: "/",
       element: <Login />,
+    },
+    {
+      path: "/forgotPassword",
+      element: <ChangePassword />,
     },
     {
       path: "/mainPage",

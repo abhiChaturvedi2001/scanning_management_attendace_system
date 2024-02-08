@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { checkValidate } from "../utils/validate";
 import appLogo from "../Assets/applogo.png";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -137,9 +138,11 @@ const Login = () => {
               placeholder="your password"
             />
           </div>
-          <p className="font-medium mt-4 hover:underline cursor-pointer font-poppins">
-            Forgot your password ?{" "}
-          </p>
+          <Link to={"/forgotPassword"}>
+            <p className="font-medium mt-4 hover:underline cursor-pointer font-poppins">
+              Forgot your password ?{" "}
+            </p>
+          </Link>
           <button
             onClick={handleValidation}
             className="mt-[70px] bg-[#0074D9] rounded-lg overflow-hidden shadow-lg w-full text-white font-poppins font-bold py-4 cursor-pointer"
