@@ -116,7 +116,7 @@ const Login = () => {
   return (
     <>
       <ToastContainer />
-      <div className="absolute bg-[#f0f7fe] top-1/2 w-[30rem] max-sm:w-[90%] shadow-lg  h-[80vh] px-9 py-9 left-1/2 rounded-lg -translate-x-1/2 -translate-y-1/2">
+      <div className="absolute bg-[#f0f7fe] top-1/2 w-[30rem] max-sm:w-[90%] shadow-lg  min-h-[80vh] h-auto px-9 py-9 left-1/2 rounded-lg -translate-x-1/2 -translate-y-1/2">
         <img src={appLogo} alt="" />
         <form onSubmit={(e) => e.preventDefault()} className="mt-6">
           <div>

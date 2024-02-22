@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import styled from "@emotion/styled";
+import React, { useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -14,10 +13,12 @@ import { addStudent, filterDataBySlot } from "../utils/studentSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import spinner from "../Assets/spinner.gif";
+import QRCod from "./QRCod";
 
 const Students = () => {
   const dispatch = useDispatch();
   const Filter = useSelector((store) => store?.student?.filterData);
+  const all = useSelector((store) => store?.student?.studentData);
   useEffect(() => {
     fetchStudentData();
   }, []);
