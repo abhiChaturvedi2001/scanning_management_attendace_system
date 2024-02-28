@@ -13,7 +13,6 @@ import { addStudent, filterDataBySlot } from "../utils/studentSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import spinner from "../Assets/spinner.gif";
-import QRCod from "./QRCod";
 
 const Students = () => {
   const dispatch = useDispatch();

@@ -59,7 +59,7 @@ const Navbar = () => {
     <>
       <ToastContainer />
       <nav
-        className={`bg-[#f0f7fe] flex flex-col justify-between relative w-[20rem]  transition-all text-black duration-100 delay-75  px-2  h-full  py-5`}
+        className={`bg-[#f0f7fe] max-md:w-[20rem] flex flex-col justify-between relative w-[20rem]  transition-all text-black duration-100 delay-75  px-2  h-full  py-5`}
       >
         <div className={`px-5 text-center`}>
           <img src={applogo} alt="" />
