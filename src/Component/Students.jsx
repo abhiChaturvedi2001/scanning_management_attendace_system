@@ -101,13 +101,7 @@ const Students = () => {
                       <TableCell align="left">{row.RegisterNo}</TableCell>
                       <TableCell align="left">{row.Name}</TableCell>
                       <TableCell align="left">{row.Course}</TableCell>
-                      <TableCell
-                        className="cursor-pointer"
-                        onClick={() => downloadAttendanceSheet(row.StudentID)}
-                        align="left"
-                      >
-                        Download
-                      </TableCell>
+                      <button className="ml-5">Download</button>
                     </TableRow>
                   ))}
                 </TableBody>
