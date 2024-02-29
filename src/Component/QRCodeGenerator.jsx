@@ -8,9 +8,11 @@ import {
   getDoc,
   doc,
 } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const QRCodeGenerator = () => {
   const [result, setResult] = useState("");
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false); // Add loading state
 
@@ -29,6 +31,7 @@ const QRCodeGenerator = () => {
       );
       if (existingDateIndex !== -1) {
         alert("Attendance for today has already been marked");
+        navigate("/mainPage/scanQR");
         return;
       }
 
@@ -42,6 +45,7 @@ const QRCodeGenerator = () => {
       });
 
       alert("Attendance marked Successfully");
+      navigate("/mainPage/scanQR");
     } else {
       console.error("Student document not found");
     }
@@ -59,7 +63,6 @@ const QRCodeGenerator = () => {
     scanner.render(success, error);
     function success(result) {
       scanner.clear();
-      console.log(result);
       setResult(result);
       fetchData(result);
     }
