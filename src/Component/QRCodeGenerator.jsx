@@ -11,41 +11,45 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const QRCodeGenerator = () => {
+  const [toggle, setToggle] = useState(false);
   const [result, setResult] = useState("");
-  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false); // Add loading state
 
   const handleAttendance = async (id) => {
-    const currentDate = new Date().toISOString().split("T")[0]; // Get current date in ISO format (YYYY-MM-DD)
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+    console.log(formattedDate);
 
     const updateStudentDoc = doc(db, "Batch23", id);
     const studentSnapshot = await getDoc(updateStudentDoc);
+
     if (studentSnapshot.exists()) {
       const studentData = studentSnapshot.data();
       const { AttendanceDates = [] } = studentData;
 
-      // Check if the student has already been marked for today
-      const existingDateIndex = AttendanceDates.findIndex(
-        (dateObj) => dateObj.date === currentDate
+      // Check if attendance for the current date already exists
+      const attendanceExists = AttendanceDates.some(
+        (attendance) => attendance.date === formattedDate
       );
-      if (existingDateIndex !== -1) {
-        alert("Attendance for today has already been marked");
-        navigate("/mainPage/scanQR");
-        return;
+
+      if (attendanceExists) {
+        alert("Attendance for today has already been marked.");
+      } else {
+        // Update the AttendanceDates array with today's attendance status
+        const updatedAttendanceDates = [
+          ...AttendanceDates,
+          { date: formattedDate, status: "Present" },
+        ];
+        await updateDoc(updateStudentDoc, {
+          AttendanceDates: updatedAttendanceDates,
+        });
+
+        alert("Attendance marked Successfully");
       }
-
-      // Update the AttendanceDates array with today's attendance status
-      const updatedAttendanceDates = [
-        ...AttendanceDates,
-        { date: currentDate, status: "Present" },
-      ];
-      await updateDoc(updateStudentDoc, {
-        AttendanceDates: updatedAttendanceDates,
-      });
-
-      alert("Attendance marked Successfully");
-      navigate("/mainPage/scanQR");
     } else {
       console.error("Student document not found");
     }
@@ -118,7 +122,10 @@ const QRCodeGenerator = () => {
                   >
                     Mark Attendance
                   </button>
-                  <button className="border px-4 py-2 mt-2 rounded-md text-white font-bold font-poppins bg-red-400">
+                  <button
+                    onClick={() => setToggle(true)}
+                    className="border px-4 py-2 mt-2 rounded-md text-white font-bold font-poppins bg-red-400"
+                  >
                     Add Remark
                   </button>
                 </div>
@@ -126,6 +133,17 @@ const QRCodeGenerator = () => {
             )}
           </>
         )}
+      </div>
+      <div
+        className={`absolute top-1/2 ${
+          toggle ? "block" : "hidden"
+        } left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-500 px-2 py-2 w-[15%] min-h-[10vh]`}
+      >
+        <button onClick={() => setToggle(false)}>X</button>
+        <input className="w-full outline-none px-2 py-1" type="text" />
+        <button className="mt-2 w-full outline-none px-2 py-1 bg-green-400 rounded-md ">
+          Submit
+        </button>
       </div>
     </>
   );

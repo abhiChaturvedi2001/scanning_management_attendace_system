@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,7 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { db } from "../utils/firebase";
-import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
+import { CSVLink } from "react-csv";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { addStudent, filterDataBySlot } from "../utils/studentSlice";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,9 +16,11 @@ import "react-toastify/dist/ReactToastify.css";
 import spinner from "../Assets/spinner.gif";
 
 const Students = () => {
+  const [studentData, setStudentData] = useState([]); // State to hold the current student data for download
   const dispatch = useDispatch();
   const Filter = useSelector((store) => store?.student?.filterData);
   const all = useSelector((store) => store?.student?.studentData);
+
   useEffect(() => {
     fetchStudentData();
   }, []);
@@ -29,6 +32,7 @@ const Students = () => {
     snapShot.forEach((doc) => data.push({ id: doc.id, ...doc.data() }));
     dispatch(addStudent(data));
   };
+
   function createData(RegisterNo, Name, Course, Attendance, id) {
     return { RegisterNo, Name, Course, Attendance, id };
   }
@@ -47,10 +51,20 @@ const Students = () => {
     dispatch(filterDataBySlot(e.currentTarget.value));
   };
 
-  const downloadAttendanceSheet = (id) => {
-    alert("downloaded");
+  // Function to handle CSV download for individual student
+  const header = [{ label: "Attendance", key: "Attendance" }];
+  const handleDownload = (id) => {
+    const particularUSer = all.filter((items) => items.id === id);
+    setStudentData(particularUSer);
   };
 
+  const data = [
+    {
+      name: studentData[0]?.StudentName,
+      status: studentData[0]?.AttendanceDates[0]?.status,
+      date: studentData[0]?.AttendanceDates[0]?.date,
+    },
+  ];
   return (
     <>
       <ToastContainer />
@@ -93,7 +107,7 @@ const Students = () => {
                 <TableBody>
                   {rows.map((row) => (
                     <TableRow
-                      key={row.studentID}
+                      key={row.id}
                       sx={{
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
@@ -101,7 +115,16 @@ const Students = () => {
                       <TableCell align="left">{row.RegisterNo}</TableCell>
                       <TableCell align="left">{row.Name}</TableCell>
                       <TableCell align="left">{row.Course}</TableCell>
-                      <button className="ml-5">Download</button>
+                      <TableCell align="left">
+                        <button
+                          onClick={() => handleDownload(row.id)}
+                          className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                        >
+                          <CSVLink data={data} header={header}>
+                            Download
+                          </CSVLink>
+                        </button>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
