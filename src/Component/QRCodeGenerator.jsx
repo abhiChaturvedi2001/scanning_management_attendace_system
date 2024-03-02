@@ -8,7 +8,6 @@ import {
   getDoc,
   doc,
 } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
 
 const QRCodeGenerator = () => {
   const [toggle, setToggle] = useState(false);
@@ -22,7 +21,6 @@ const QRCodeGenerator = () => {
     const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
     const day = String(currentDate.getDate()).padStart(2, "0");
     const formattedDate = `${year}-${month}-${day}`;
-    console.log(formattedDate);
 
     const updateStudentDoc = doc(db, "Batch23", id);
     const studentSnapshot = await getDoc(updateStudentDoc);
@@ -87,7 +85,7 @@ const QRCodeGenerator = () => {
       const filteredData = fetchedData.filter((item) => item.id === resultId);
       setData(filteredData);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      // console.error("Error fetching data:", error);
     } finally {
       setLoading(false); // Set loading to false after fetching
     }

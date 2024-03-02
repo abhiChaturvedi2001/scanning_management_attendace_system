@@ -62,7 +62,7 @@ const Students = () => {
     {
       name: studentData[0]?.StudentName,
       status: studentData[0]?.AttendanceDates[0]?.status,
-      date: studentData[0]?.AttendanceDates[0]?.date,
+      date: studentData[0]?.AttendanceDates.map((items) => items.date),
     },
   ];
   return (
