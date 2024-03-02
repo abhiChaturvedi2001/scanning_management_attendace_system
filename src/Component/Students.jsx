@@ -50,21 +50,20 @@ const Students = () => {
   const handleValue = (e) => {
     dispatch(filterDataBySlot(e.currentTarget.value));
   };
-
-  // Function to handle CSV download for individual student
-  const header = [{ label: "Attendance", key: "Attendance" }];
   const handleDownload = (id) => {
-    const particularUSer = all.filter((items) => items.id === id);
-    setStudentData(particularUSer);
+    const particularUser = all.find((item) => item.id === id);
+    if (particularUser && particularUser.AttendanceDates) {
+      const data = particularUser.AttendanceDates.map((item) => ({
+        Name: particularUser.StudentName,
+        Status: item.status,
+        Date: item.date,
+      }));
+      return data;
+    } else {
+      return [];
+    }
   };
 
-  const data = [
-    {
-      name: studentData[0]?.StudentName,
-      status: studentData[0]?.AttendanceDates[0]?.status,
-      date: studentData[0]?.AttendanceDates.map((items) => items.date),
-    },
-  ];
   return (
     <>
       <ToastContainer />
@@ -120,7 +119,10 @@ const Students = () => {
                           onClick={() => handleDownload(row.id)}
                           className="bg-blue-500 text-white px-4 py-2 rounded-md"
                         >
-                          <CSVLink data={data} header={header}>
+                          <CSVLink
+                            data={handleDownload(row.id)}
+                            filename={`${row.Name}_attendance.csv`}
+                          >
                             Download
                           </CSVLink>
                         </button>
