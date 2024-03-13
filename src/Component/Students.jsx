@@ -66,10 +66,29 @@ const Students = () => {
   };
 
   const byDateFilter = () => {
-    return all.filter((student) =>
+    const filteredStudents = all.filter((student) =>
       student.AttendanceDates.some((attendance) => attendance.date === myDate)
     );
+
+    // Add the selected date and status to the filtered data
+    const dataWithDateAndStatus = filteredStudents.map((student) => {
+      const { AttendanceDates, ...rest } = student;
+      const filteredAttendance = AttendanceDates.filter(
+        (attendance) => attendance.date === myDate
+      );
+      const status =
+        filteredAttendance.length > 0 ? filteredAttendance[0].status : "Absent";
+      return {
+        ...rest,
+        SelectedDate: myDate,
+        Status: status, // Include the status (present or absent)
+        AttendanceDates: filteredAttendance,
+      };
+    });
+
+    return dataWithDateAndStatus;
   };
+
   return (
     <>
       <ToastContainer />
@@ -78,16 +97,19 @@ const Students = () => {
           <h1 className="font-bold font-poppins capitalize ">
             Note : All the MCA student who Paid the Fees are in the list.
           </h1>
-          <div className="flex justify-between w-full ">
+          <div className=" ">
             <div>
-              <label>Date</label>
+              <label className="font-bold font-poppins">
+                Filter Students by Date :
+              </label>
               <input
                 type="date"
                 value={myDate}
+                className="bg-gray-300 w-[30%] ml-3 px-2"
                 onChange={(e) => setmyDate(e.currentTarget.value)}
                 placeholder="getStudentDate wise"
               />
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+              <button className="bg-blue-500 text-white px-4 py-2 ml-5 rounded-md">
                 <CSVLink data={byDateFilter()} filename={`attendance.csv`}>
                   Download
                 </CSVLink>
