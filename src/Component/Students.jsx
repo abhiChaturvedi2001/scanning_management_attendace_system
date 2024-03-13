@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import spinner from "../Assets/spinner.gif";
 
 const Students = () => {
+  const [myDate, setmyDate] = useState();
   const [studentData, setStudentData] = useState([]); // State to hold the current student data for download
   const dispatch = useDispatch();
   const Filter = useSelector((store) => store?.student?.filterData);
@@ -64,6 +65,11 @@ const Students = () => {
     }
   };
 
+  const byDateFilter = () => {
+    return all.filter((student) =>
+      student.AttendanceDates.some((attendance) => attendance.date === myDate)
+    );
+  };
   return (
     <>
       <ToastContainer />
@@ -72,6 +78,22 @@ const Students = () => {
           <h1 className="font-bold font-poppins capitalize ">
             Note : All the MCA student who Paid the Fees are in the list.
           </h1>
+          <div className="flex justify-between w-full ">
+            <div>
+              <label>Date</label>
+              <input
+                type="date"
+                value={myDate}
+                onChange={(e) => setmyDate(e.currentTarget.value)}
+                placeholder="getStudentDate wise"
+              />
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                <CSVLink data={byDateFilter()} filename={`attendance.csv`}>
+                  Download
+                </CSVLink>
+              </button>
+            </div>
+          </div>
           <div className="mt-4 px-4 mx-sm:text-center">
             <label className="font-bold font-poppins">
               Check Students Slot Wise :{" "}

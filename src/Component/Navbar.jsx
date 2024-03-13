@@ -11,8 +11,10 @@ import "react-toastify/dist/ReactToastify.css";
 import applogo from "../Assets/applogo.png";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { IoIosQrScanner } from "react-icons/io";
+import { RiMenu2Fill } from "react-icons/ri";
 const Navbar = () => {
   const [isOpen, setisOpen] = useState(false);
+  const [isToggle, setisToggle] = useState(false);
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -59,7 +61,9 @@ const Navbar = () => {
     <>
       <ToastContainer />
       <nav
-        className={`bg-[#f0f7fe] max-md:w-[20rem] flex flex-col justify-between relative w-[20rem]  transition-all text-black duration-100 delay-75  px-2  h-full  py-5`}
+        className={`bg-[#f0f7fe] ${
+          isToggle ? `max-md:block` : ` max-md:hidden`
+        }  flex flex-col justify-between relative w-[20rem]  transition-all text-black duration-100 delay-75  px-2  h-full  py-5`}
       >
         <div className={`px-5 text-center`}>
           <img src={applogo} alt="" />

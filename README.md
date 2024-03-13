@@ -16,4 +16,3 @@ Currently, two official plugins are available:
 - Bug fix : sign in sign up 
 - refactoring done
 - header done with drop down menu
-- checking the github
