@@ -81,8 +81,7 @@ const Students = () => {
       return {
         ...rest,
         SelectedDate: myDate,
-        Status: status, // Include the status (present or absent)
-        AttendanceDates: filteredAttendance,
+        Status: status,
       };
     });
 
